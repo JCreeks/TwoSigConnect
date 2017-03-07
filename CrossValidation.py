@@ -11,8 +11,8 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
 from sklearn.model_selection import KFold, train_test_split, TimeSeriesSplit
 from sklearn import linear_model
-import xgboost as xgb
-from xgboost import XGBClassifier, XGBRegressor
+#import xgboost as xgb
+#from xgboost import XGBClassifier, XGBRegressor
 from sklearn.metrics import log_loss, mean_squared_error as mse, r2_score 
 from sklearn.metrics.scorer import make_scorer
 
