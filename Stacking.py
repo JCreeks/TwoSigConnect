@@ -15,13 +15,14 @@ from XGBoostPackage import xgbClass
 
 class Ensemble(object):
     #base_models=[model1, model2, model3,...]
-    def __init__(self, n_folds, stacker, base_models, is_TimeSeries=False):
+    def __init__(self, n_folds, stacker, base_models, is_TimeSeries=False, random_state=None):
         self.n_folds = n_folds
         self.stacker = stacker
         self.base_models = base_models
         self.S_train=[]
         self.S_test=[]
         self.isTS=is_TimeSeries
+        self.random_state=random_state
         #self_folds=[]
         
     def fit(self, X_train, y_train):
@@ -29,7 +30,7 @@ class Ensemble(object):
             X_train=np.array(X_train)
             y_train=np.array(y_train)
         if not self.isTS:
-            kf=KFold(n_splits=self.n_folds, shuffle=True, random_state=17)
+            kf=KFold(n_splits=self.n_folds, shuffle=True, random_state=self.random_state)
         else:
             kf=TimeSeriesSplit(n_splits=self.n_folds)
         self.S_train = np.zeros((X_train.shape[0], len(self.base_models)))
@@ -61,7 +62,7 @@ class Ensemble(object):
 
 class EnsembleClassifier(object):
     #base_models=[model1, model2, model3,...]
-    def __init__(self, n_folds, stacker, base_models, is_TimeSeries=False, n_class=1):
+    def __init__(self, n_folds, stacker, base_models, is_TimeSeries=False, n_class=1, random_state=None):
         self.n_folds = n_folds
         self.stacker = stacker
         self.base_models = base_models
@@ -69,6 +70,7 @@ class EnsembleClassifier(object):
         self.S_test=[]
         self.isTS=is_TimeSeries
         self.n_class=n_class
+        self.random_state=random_state
         #self_folds=[]
         
     def fit(self, X_train, y_train):
@@ -76,7 +78,7 @@ class EnsembleClassifier(object):
             X_train=np.array(X_train)
             y_train=np.array(y_train)
         if not self.isTS:
-            kf=KFold(n_splits=self.n_folds, shuffle=True, random_state=17)
+            kf=KFold(n_splits=self.n_folds, shuffle=True, random_state=self.random_state)
         else:
             kf=TimeSeriesSplit(n_splits=self.n_folds)
         self.S_train = np.zeros((X_train.shape[0], len(self.base_models)*self.n_class))
