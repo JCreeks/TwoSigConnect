@@ -90,7 +90,7 @@ class EnsembleClassifier(object):
                 # y_CVholdout = y_train[test_idx]
                 clf[j].fit(X_CVtrain, y_CVtrain)
                 y_pred = clf[j].predict_proba(X_CVholdout)
-                self.S_train[test_idx, i:(i+self.n_class)] = y_pred
+                self.S_train[test_idx, i:(i+self.n_class-1)] = y_pred[:,1:]
         self.stacker.fit(self.S_train, y_train)
         
     def predict(self, X_test):    
