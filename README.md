@@ -2,6 +2,8 @@
 
 How to use this thing
 
+# $ git init
+
 #Create a new repository $ git remote add origin https://
 
 #Check Github repository $ git remote -v
