@@ -2,6 +2,13 @@
 
 How to use this thing
 
+# $ git init
+
+#Create a new repository $ git remote add origin https://
+
+#Check Github repository $ git remote -v
+
+#Change Github repository $ git remote set-url origin https://
 To update your local copy of the code, run this in the terminal:
 
 git pull origin master
