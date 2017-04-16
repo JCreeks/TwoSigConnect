@@ -29,7 +29,7 @@ def CVScore(model, X_train, y_train, n_splits=5, seed=2017, my_score=mse):
     if not len(np.array(X_train).shape)==0:
         X_train=np.array(X_train)
         y_train=np.array(y_train)
-    kf=StratifiedKFold(y_train, n_folds=2, shuffle=True, random_state=seed)
+    kf=StratifiedKFold(y_train, n_folds=n_splits, shuffle=True, random_state=seed)
     for train_idx, test_idx in kf:
         X_CVtrain = X_train[train_idx]
         y_CVtrain = y_train[train_idx]
