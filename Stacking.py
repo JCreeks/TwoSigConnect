@@ -121,5 +121,4 @@ class EnsembleClassifier(object):
         y_pred = self.stacker.predict_proba(self.S_test)
         return y_pred
 
-
-
+    
