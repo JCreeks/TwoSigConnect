@@ -84,7 +84,7 @@ def runXGBShuffle(X_train, y_train, X_test, num_class=1, feature_names=None, see
 class xgbClass(object):
     def __del__(self):
         return 
-    def __init__(self, eta=.1, subsample=.8, num_class=1, max_depth=5, seed=17, silent=0, eva_metric='mlogloss',                colsample_bytree=1, objective='solfprob', min_child_weight=1, num_rounds=500):
+    def __init__(self, eta=.1, subsample=.8, num_class=1, max_depth=5, seed=17, silent=0, eva_metric='mlogloss',                colsample_bytree=1, objective='solfprob', min_child_weight=1, num_rounds=500, early_stopping_rounds=None):
         self.params={
         'objective' : objective, #'reg:linear','multi:softprob'
         'subsample' : subsample,
@@ -97,14 +97,16 @@ class xgbClass(object):
         'min_child_weight': min_child_weight
         }
         self.num_rounds=num_rounds
+        self.early_stopping_rounds=early_stopping_rounds
         
         if num_class!=1:
             self.params['num_class']=num_class
         self.model=[]
         
-    def fit(self, X_train, y_train, early_stopping_rounds=None):
+    def fit(self, X_train, y_train):#, early_stopping_rounds=None):
         dtrain = xgb.DMatrix(X_train, label=y_train)
-        self.model = xgb.train(self.params, dtrain, num_boost_round=self.num_rounds, early_stopping_rounds=early_stopping_rounds)
+        self.model = xgb.train(self.params, dtrain, num_boost_round=self.num_rounds, #early_stopping_rounds=early_stopping_rounds)
+                               early_stopping_rounds=self.early_stopping_rounds)
     
     def predict(self, X_test):
         dtest = xgb.DMatrix(X_test)
